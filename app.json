@@ -1,0 +1,12 @@
+{
+  "name": "gerencie",
+  "displayName": "gerencie",
+  "expo": {
+    "name": "gerencie",
+    "slug": "gerencie",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
