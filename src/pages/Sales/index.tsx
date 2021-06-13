@@ -3,9 +3,9 @@ import {KeyboardAvoidingView, Text, Pressable} from 'react-native';
 import Header from '../../components/Header';
 import {
   Container,
-  TitleContainer,
-  Title,
   ContentContainer,
+  MainContent,
+  Content
 } from './styles';
 
 const Sales = ({navigation}: {navigation: any}) => {
@@ -13,11 +13,11 @@ const Sales = ({navigation}: {navigation: any}) => {
     <>
       <KeyboardAvoidingView style={{flex: 1}} enabled>
         <Container>
-          <Header onPress={() => navigation.openDrawer()} />
-          <TitleContainer>
-            <Title>Vendas:</Title>
-          </TitleContainer>
+          <Header title='Vendas' onPress={() => navigation.openDrawer()} />
           <ContentContainer>
+            <MainContent>
+              <Content>Vendas</Content>
+            </MainContent>
             <Pressable
               onPress={() => navigation.navigate('Appointments')}
               style={{ padding: 10, marginBottom: 10, marginTop: 10 }}

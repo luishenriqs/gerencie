@@ -10,11 +10,22 @@ const Drawer = createDrawerNavigator();
 // Route to app menu;
 const AppRoutes: React.FC = () => {
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="Appointments" component={Appointments}  />
-      <Drawer.Screen name="Delivery" component={Delivery} />
-      <Drawer.Screen name="Financial" component={Financial} />
-      <Drawer.Screen name="Sales" component={Sales} />
+    <Drawer.Navigator
+      drawerStyle={{
+        backgroundColor: '#f3a723',
+        width: 200,
+      }}
+      drawerContentOptions={{
+        activeTintColor: '#fff',
+        inactiveTintColor: '#345995',
+        itemStyle: {borderRadius: 8},
+        labelStyle: {fontWeight: 'bold'}
+      }}
+    >
+      <Drawer.Screen name="Agendamentos" component={Appointments} />
+      <Drawer.Screen name="Entregas" component={Delivery} />
+      <Drawer.Screen name="Financeiro" component={Financial} />
+      <Drawer.Screen name="Vendas" component={Sales} />
     </Drawer.Navigator>
   );
 }
