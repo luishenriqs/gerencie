@@ -1,18 +1,21 @@
 import React from 'react';
-import {Container, Icon, TitleContainer, Title} from './styles';
+import {Container, HeaderWrapper, Icon, Title} from './styles';
 
 interface HeaderProps {
   title: string;
+  headerSize: 'big' | 'small';
   onPress(): void;
 }
 
-const Header: React.FC<HeaderProps> = ({onPress, title}) => {
+
+const Header: React.FC<HeaderProps> = ({title, headerSize, onPress}) => {
   return (
     <Container>
-      <Icon size={30} name="menu" onPress={onPress} />
-      <TitleContainer>
+      <HeaderWrapper headerSize={headerSize}>
+        <Icon size={30} name="menu" onPress={onPress} />
         <Title>{title}</Title>
-      </TitleContainer>
+        <Icon size={30} name="menu" onPress={onPress} />
+      </HeaderWrapper>
     </Container>
   );
 };
