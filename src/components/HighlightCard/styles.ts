@@ -12,8 +12,7 @@ export const Container = styled.View<TypeProps>`
     };
     width: ${RFValue(300)}px;
     border-radius: 5px;
-    padding: 20px 23px;
-    padding-bottom: ${RFValue(20)}px;
+    padding: ${RFValue(15)}px ${RFValue(23)}px;
     margin-right: 16px;
 `;
 
@@ -51,7 +50,7 @@ export const Amount = styled.Text<TypeProps>`
     };
     font-family: ${({ theme }) => theme.fonts.medium };
     font-size: ${RFValue(32)}px;
-    margin-top: 20px;
+    margin-top: 5px;
 `;
 
 export const LastTransaction = styled.Text<TypeProps>`

@@ -23,7 +23,7 @@ export const HeaderWrapper = styled.View<IHeaderProps>`
     padding: 0 15px 10px 15px;
   `};
   ${({ headerSize }) => headerSize === 'big' && css`
-    height: ${getStatusBarHeight() + RFPercentage(30)}px;
+    height: ${getStatusBarHeight() + RFPercentage(28)}px;
     align-items: flex-start;
     justify-content: space-between;
     padding: 40px 15px 0 15px;

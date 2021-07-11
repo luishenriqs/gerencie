@@ -66,19 +66,19 @@ export function List({navigation}: {navigation: any}) {
                 <HighlightCard
                     title="Entradas"
                     amount="R$ 17.400,00"
-                    lastTransaction="Última entrada dia 13 de abril"
+                    lastTransaction="Total de entradas no mês de julho"
                     type="up"
                 />
                 <HighlightCard
-                    title="Saídas"
+                    title="Despesas"
                     amount="R$ 1.259,00"
-                    lastTransaction="Última saída dia 08 de abril"
+                    lastTransaction="Total de despesas no mês de julho"
                     type="down"
                 />
                 <HighlightCard
                     title="Balanço"
                     amount="R$ 16.141,00"
-                    lastTransaction="01 à dia 16 de abril"
+                    lastTransaction="Balanço do mês de julho"
                     type="total"
                 />
             </Cards> 
@@ -89,7 +89,7 @@ export function List({navigation}: {navigation: any}) {
                         <Title>Entradas</Title>
                     </FilterButton>
                     <FilterButton>
-                        <Title>Saídas</Title>
+                        <Title>Despesas</Title>
                     </FilterButton>
                     <FilterButton>
                         <Title>Balanço</Title>

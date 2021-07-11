@@ -1,13 +1,13 @@
 import React from 'react';
 import {
     Container,
-    Title,
-    Amount,
-    Footer,
+    Header,
     Category,
     Icon,
     CategoryName,
     Date,
+    Description,
+    Amount,
 } from './styles';
 
 interface ICategory {
@@ -30,18 +30,18 @@ interface IProps {
 export const TransactionCard = ({ data }: IProps) => {
     return (
         <Container>
-            <Title>{data.title}</Title>
-            <Amount type={data.type}>
-                {data.type === 'negative' && '- '}
-                {data.amount}
-            </Amount>
-            <Footer>
+            <Header>
                 <Category>
                     <Icon name={data.category.icon} />
                     <CategoryName>{data.category.name}</CategoryName>
                 </Category>
                 <Date>{data.date}</Date>
-            </Footer>
+            </Header>
+            <Description>{data.title}</Description>
+            <Amount type={data.type}>
+                {data.type === 'negative' && '- '}
+                {data.amount}
+            </Amount>
         </Container>
     )
 }
