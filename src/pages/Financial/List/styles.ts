@@ -55,3 +55,9 @@ export const Title = styled.Text`
     font-size: ${RFValue(13)}px;
     color: ${({ theme }) => theme.colors.text };
 `;
+
+export const LoadingContainer = styled.View`
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+`;

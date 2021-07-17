@@ -26,8 +26,6 @@ interface IFormData {
     description: string;
 }
 
-const dataKey = '@gerencie:transactions';
-
 const schema = Yup.object().shape({
     value: Yup
         .number()
@@ -79,6 +77,7 @@ export function Register() {
             description: form.description
         }
         try {
+            const dataKey = '@gerencie:transactions';
             const data = await AsyncStorage.getItem(dataKey);
             const currentData = data ? JSON.parse(data) : [];
             const dataFormated = [...currentData, newTransaction]
@@ -94,7 +93,6 @@ export function Register() {
             navigation.navigate('Lista');
 
         } catch (error) {
-            console.log('Não foi possível salvar os dados: ',error);
             Alert.alert('Não foi possível salvar os dados')
         }
     }

@@ -1,9 +1,9 @@
 import styled from 'styled-components/native';
-import { Feather } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 interface ITransactionProps {
-    type: 'positive' | 'negative';
+    transactionType: 'up' | 'down';
 }
 
 export const Container = styled.View`
@@ -25,7 +25,7 @@ export const Category = styled.View`
     align-items: center;
 `;
 
-export const Icon = styled(Feather)`
+export const Icon = styled(MaterialIcons)`
     font-size: ${RFValue(16)}px;
     color: ${({ theme }) => theme.colors.title };
 `;
@@ -52,8 +52,8 @@ export const Description = styled.Text`
 export const Amount = styled.Text<ITransactionProps>`
     font-family: ${({ theme }) => theme.fonts.regular };
     font-size: ${RFValue(20)}px;
-    color: ${({ theme, type }) =>
-        type === 'positive' ? theme.colors.success : theme.colors.attention
+    color: ${({ theme, transactionType }) =>
+        transactionType === 'up' ? theme.colors.success : theme.colors.attention
     };
     margin-top: 2px;
 `;

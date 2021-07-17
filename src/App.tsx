@@ -1,4 +1,7 @@
 import 'react-native-gesture-handler';
+/* Necessária a instalação para android: ==> yarn add intl */
+import 'intl';
+import 'intl/locale-data/jsonp/pt-BR';
 
 import * as React from 'react';
 import AppLoading from 'expo-app-loading';
