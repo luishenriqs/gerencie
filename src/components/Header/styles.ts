@@ -41,3 +41,7 @@ export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold };
 `;
 
+export const Empty = styled.View`
+  width: 28px;
+  height: 35px;
+`;

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, HeaderWrapper, Icon, Title} from './styles';
+import {Container, HeaderWrapper, Icon, Title, Empty} from './styles';
 
 interface HeaderProps {
   title: string;
@@ -14,7 +14,7 @@ const Header: React.FC<HeaderProps> = ({title, headerSize, onPress}) => {
       <HeaderWrapper headerSize={headerSize}>
         <Icon size={30} name="menu" onPress={onPress} />
         <Title>{title}</Title>
-        <Icon size={30} name="menu" onPress={onPress} />
+        <Empty/>
       </HeaderWrapper>
     </Container>
   );
