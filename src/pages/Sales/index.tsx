@@ -14,7 +14,7 @@ const Sales = ({navigation}: {navigation: any}) => {
       <KeyboardAvoidingView style={{flex: 1}} enabled>
         <Container>
           <Header
-            title='Agendamentos'
+            title='Vendas'
             headerSize={'small'}
             onPress={() => navigation.openDrawer()}
           />

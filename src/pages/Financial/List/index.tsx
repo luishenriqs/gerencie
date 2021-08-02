@@ -232,7 +232,7 @@ export function List({navigation}: {navigation: any}) {
                             type="down"
                         />
                         <HighlightCard
-                            title="Balanço"
+                            title="Saldo"
                             amount={highlightData.total.amount}
                             lastTransaction={highlightData.total.lastTransaction}
                             type="total"
@@ -248,7 +248,7 @@ export function List({navigation}: {navigation: any}) {
                                 <Title>Despesas</Title>
                             </FilterButton>
                             <FilterButton>
-                                <Title>Balanço</Title>
+                                <Title>Saldo</Title>
                             </FilterButton>
                         </Filters>
                         <TransactionList 
