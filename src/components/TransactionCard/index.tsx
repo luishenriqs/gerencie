@@ -13,7 +13,7 @@ import {
 
 export interface ITransactionCardProps {
     id: string;
-    transactionType: 'up' | 'down';
+    type: 'up' | 'down';
     description: string;
     value: string;
     category: string;
@@ -36,8 +36,8 @@ export const TransactionCard = ({ data }: IProps) => {
                 <Date>{data.date}</Date>
             </Header>
             <Description>{data.description}</Description>
-            <Amount transactionType={data.transactionType}>
-                {data.transactionType === 'down' && '- '}
+            <Amount type={data.type}>
+                {data.type === 'down' && '- '}
                 {data.value}
             </Amount>
         </Container>

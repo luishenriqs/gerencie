@@ -4,7 +4,7 @@
   "expo": {
     "name": "gerencie",
     "slug": "gerencie",
-    "schema": "gerencie",
+    "scheme": "gerencie",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"

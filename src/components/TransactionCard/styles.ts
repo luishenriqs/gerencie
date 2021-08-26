@@ -3,7 +3,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 interface ITransactionProps {
-    transactionType: 'up' | 'down';
+    type: 'up' | 'down';
 }
 
 export const Container = styled.View`
@@ -52,8 +52,8 @@ export const Description = styled.Text`
 export const Amount = styled.Text<ITransactionProps>`
     font-family: ${({ theme }) => theme.fonts.regular };
     font-size: ${RFValue(20)}px;
-    color: ${({ theme, transactionType }) =>
-        transactionType === 'up' ? theme.colors.success : theme.colors.attention
+    color: ${({ theme, type }) =>
+        type === 'up' ? theme.colors.success : theme.colors.attention
     };
     margin-top: 2px;
 `;

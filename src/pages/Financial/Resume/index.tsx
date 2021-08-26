@@ -27,7 +27,7 @@ import {
 } from './styles';
 
 interface ITransactionProps {
-    transactionType: 'up' | 'down';
+    type: 'up' | 'down';
     description: string;
     value: string;
     category: string;
@@ -77,7 +77,7 @@ export function Resume() {
         // 3 comparisons are made: same type, month, year;
         const expensives = responseFormatted.filter(
             (expensive: ITransactionProps) => 
-            expensive.transactionType === 'down' &&
+            expensive.type === 'down' &&
             new Date(expensive.date).getMonth() === selectedDate.getMonth() &&
             new Date(expensive.date).getFullYear() === selectedDate.getFullYear()
         );

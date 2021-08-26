@@ -8,6 +8,7 @@ import AppLoading from 'expo-app-loading';
 import { ThemeProvider } from 'styled-components';
 import { View, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { AuthProvider } from './hooks/Auth';
 import AppRoutes from './routes/app.routes';
 import theme from './global/styles/theme';
 import {
@@ -33,12 +34,13 @@ export default function App() {
      <NavigationContainer>
       <StatusBar
         barStyle="light-content"
-        // backgroundColor="#312e38"
         translucent
       />
       <ThemeProvider theme={theme}>
         <View style={{flex: 1, backgroundColor: '#312e38'}}>
-          <AppRoutes />
+          <AuthProvider>
+            <AppRoutes />
+          </AuthProvider>
         </View>
       </ThemeProvider>
     </NavigationContainer>

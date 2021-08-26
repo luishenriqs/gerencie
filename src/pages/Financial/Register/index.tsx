@@ -37,7 +37,7 @@ const schema = Yup.object().shape({
   
 
 export function Register() {
-    const [transactionType, setTransactionType] = useState('');
+    const [type, setType] = useState('');
     const [categoryModalOpen, setCategoryModalOpen] = useState(false);
     const [category, setCategory] = useState({
         key: 'category',
@@ -51,7 +51,7 @@ export function Register() {
     });
 
     const handleSelectTransactionsTypes = (type: 'up' | 'down') => {
-        setTransactionType(type);
+        setType(type);
     }
 
     const handleOpenSelectCategoryModal = () => {
@@ -65,7 +65,7 @@ export function Register() {
     async function handleRegister(form: IFormData) {
         if (category.key === 'category')
             return Alert.alert('Selecione a categoria.')
-        if (!transactionType) 
+        if (!type) 
             return Alert.alert('Selecione o tipo da transação.')
 
         const newTransaction = {
@@ -73,7 +73,7 @@ export function Register() {
             date: new Date(),
             category: category.key,
             value: form.value,
-            transactionType,
+            type,
             description: form.description
         }
         try {
@@ -84,7 +84,7 @@ export function Register() {
             await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormated));
 
             reset();
-            setTransactionType('');
+            setType('');
             setCategory({
                 key: 'category',
                 name: 'categoria',
@@ -121,13 +121,13 @@ export function Register() {
                                 type='up'
                                 title='Entrada'
                                 onPress={() => handleSelectTransactionsTypes('up')}
-                                isActive={transactionType === 'up'}
+                                isActive={type === 'up'}
                             />
                             <TransactionTypeButton
                                 type='down'
                                 title='Despesa'
                                 onPress={() => handleSelectTransactionsTypes('down')}
-                                isActive={transactionType === 'down'}
+                                isActive={type === 'down'}
                             />
                         </TransactionsTypes>
 

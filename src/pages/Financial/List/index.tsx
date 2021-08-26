@@ -25,7 +25,7 @@ export interface IDataListProps extends ITransactionCardProps {
 
 interface IHighlightProps {
     amount: string;
-    lastTransaction: string;
+    lastDate: string;
 }
 
 interface IHighlightData {
@@ -38,11 +38,7 @@ export function List({navigation}: {navigation: any}) {
     const [isLoading, setIsLoading] = useState(true);
     const [transaction, setTransaction] = useState<IDataListProps[]>([]);
     const [entries, setEntries] = useState<IDataListProps[]>([]);
-    const [firstEntrie, setFirstEntrie] = useState<IDataListProps>({} as IDataListProps);
-    const [lastEntrie, setLastEntrie] = useState<IDataListProps>({} as IDataListProps);
     const [expensives, setExpensives] = useState<IDataListProps[]>([]);
-    const [firstExpensive, setFirstExpensive] = useState<IDataListProps>({} as IDataListProps);
-    const [lastExpensive, setLastExpensive] = useState<IDataListProps>({} as IDataListProps);
     const [highlightData, setHighlightData] = useState<IHighlightData>(
         {} as IHighlightData
     );
@@ -50,11 +46,13 @@ export function List({navigation}: {navigation: any}) {
     const theme = useTheme();
 
     function formattedAmount(amountToFormat: number) {
-        const amount = amountToFormat
+        let amount = amountToFormat
         .toLocaleString('pt-BR', {
             style: 'currency',
             currency: 'BRL'
         })
+
+        amount = amount.replace('R$', 'R$ ');
         return amount;
     };
 
@@ -73,7 +71,7 @@ export function List({navigation}: {navigation: any}) {
         let total = 0;
         const transactionsFormatted: IDataListProps[] = transactionsToFormat
         .map((item: IDataListProps) => {
-            if (item.transactionType === 'up') {
+            if (item.type === 'up') {
                 entriesTotal += Number(item.value);
             } else {
                 expensivesTotal += Number(item.value);
@@ -84,7 +82,7 @@ export function List({navigation}: {navigation: any}) {
             return {
                 id: item.id,
                 description: item.description,
-                transactionType: item.transactionType,
+                type: item.type,
                 category: item.category,
                 value,
                 date,
@@ -93,11 +91,26 @@ export function List({navigation}: {navigation: any}) {
         return {transactionsFormatted, entriesTotal, expensivesTotal, total};
     };
 
-    function getDayAndMonth(date: Date) {
-        const dateToGetDay = new Date(date);
-        const day = dateToGetDay.getDate();
-        const month = dateToGetDay.toLocaleString('pt-BR', { month: 'long' })
-        return {day, month};
+    function getLastTransactionDate(
+        collection: IDataListProps[], 
+        type: 'up' | 'down'
+      ) {
+  
+      const collectionFiltered = collection
+      .filter((transaction) => transaction.type === type)
+  
+      if (collectionFiltered.length === 0) {
+        return 0;
+      }
+      const lastTransaction = new Date(Math.max.apply(
+        Math, collectionFiltered
+          .map((transaction) => new Date(transaction.date).getTime())  
+        )
+      )
+      const lastDate = `${lastTransaction.getDate()} de ${lastTransaction
+        .toLocaleString('pt-BR', { month: 'long' })}`
+
+      return lastDate;
     };
 
     async function request() {
@@ -112,95 +125,61 @@ export function List({navigation}: {navigation: any}) {
             total
         } = formattedTransaction(transactions);
 
-
-        // **********************[ALL TRANSACTIONS]*****************************
+        /* **********************[ALL TRANSACTIONS]************************** */
+        // Used in listing;
         setTransaction(transactionsFormatted);
-
-        // ***************[DAY AND MONTH OF TRANSACTIONS]***********************
-         const firstDayAndMonth = getDayAndMonth(new Date(transactions[0].date));
         
-        const lastIndexTransaction = transactions.length - 1;
-        const lastDayAndMonth = getDayAndMonth(
-            new Date(transactions[lastIndexTransaction].date));
-        
-        // *****************[ONLY ENTRIES TRANSACTIONS]*************************
+        /* *****************[ONLY ENTRIES TRANSACTIONS]********************** */
+        // Used in listing entries;
         const transactionsEntries = transactionsFormatted.filter(
-            (transactions: IDataListProps) => transactions.transactionType === 'up'
+            (transactions: IDataListProps) => transactions.type === 'up'
         );
         setEntries(transactionsEntries);
 
-        // ************[FIRST AND LAST ENTRIES TRANSACTIONS]********************
-        const firstEntrie = transactionsEntries[0];
-        const indexEntrie = transactionsEntries.length - 1;
-        const lastEntrie = transactionsEntries[indexEntrie];
-        setFirstEntrie(firstEntrie);
-        setLastEntrie(lastEntrie);
-
-        // ******************[DAY AND MONTH OF ENTRIES]*************************
-        const onlyEntries = transactions.filter(
-            (transactions: IDataListProps) => transactions.transactionType === 'up'
-        );
-        const firstDayAndMonthEntries = getDayAndMonth(new Date(onlyEntries[0].date));
-        
-        const lastIndexEntrie = onlyEntries.length - 1;
-        const lastDayAndMonthEntries = getDayAndMonth(
-            new Date(onlyEntries[lastIndexEntrie].date));
-
-        // ***************[ONLY EXPENSIVES TRANSACTIONS]************************
+        /* *******************[ONLY EXPENSIVES TRANSACTIONS]***************** */
+        // Used in listing expensives;
         const transactionsExpensives = transactionsFormatted.filter(
-            (transactions: IDataListProps) => transactions.transactionType === 'down'
+            (transactions: IDataListProps) => transactions.type === 'down'
         );
         setExpensives(transactionsExpensives);
 
-        // **********[FIRST AND LAST EXPENSIVES TRANSACTIONS]*******************
-        const firstExpensive = transactionsExpensives[0];
-        const indexExpensive = transactionsExpensives.length - 1;
-        const lastExpensive = transactionsExpensives[indexExpensive];
-        setFirstExpensive(firstExpensive);
-        setLastExpensive(lastExpensive);
-
-        // ****************[DAY AND MONTH OF EXPENSIVES]************************
-        const onlyExpensives = transactions.filter(
-            (transactions: IDataListProps) => transactions.transactionType === 'down'
-        );
-        const firstDayAndMonthExpensive = getDayAndMonth(
-            new Date(onlyExpensives[0].date));
         
-        const lastIndexExpensive = onlyExpensives.length - 1;
-        const lastDayAndMonthExpensives = getDayAndMonth(
-            new Date(onlyExpensives[lastIndexExpensive].date));
+        /* *********************[LAST TRANSACTIONS DATE]********************* */
+        const lastEntriesDate = getLastTransactionDate(transactions, 'up')
+        const lastExpensivesDate = getLastTransactionDate(transactions, 'down')
+        
+        const totalInterval = lastExpensivesDate === 0 
+          ? 'Não há transações' 
+          : `01 a ${lastExpensivesDate}`;
 
-        // **********************[FORMATTING AMOUNT]****************************
+
+        // ******************[FORMATTING HIGHLIGHT DATA]************************
         setHighlightData({
             entries: {
                 amount: formattedAmount(entriesTotal),
-                lastTransaction: 
-                `Última entrada dia ${lastDayAndMonthEntries.day} de ${lastDayAndMonthEntries.month}`,
+                lastDate: lastEntriesDate === 0 
+                    ? 'Não há entradas' 
+                    : `Última entrada dia ${lastEntriesDate}` 
             },
             expensives: {
                 amount: formattedAmount(expensivesTotal),
-                lastTransaction:
-                `Última saída dia ${lastDayAndMonthExpensives.day} de ${lastDayAndMonthExpensives.month}`,
+                lastDate: lastExpensivesDate === 0 
+                    ? 'Não há despesas' 
+                    : `Última despesa dia ${lastExpensivesDate}`
             },
             total: {
                 amount: formattedAmount(total),
-                lastTransaction: 
-                `De ${firstDayAndMonth.day} a ${lastDayAndMonth.day} de ${firstDayAndMonth.month}`,
+                lastDate: totalInterval,
             }
         });
 
-        // **********************[STOP LOADING]*********************************
+        /* **********************[STOP LOADING]****************************** */
         setIsLoading(false);
     }
-
-    useEffect(() => {
-        request();
-    }, []);
 
     useFocusEffect(useCallback(() => {
         request();
     }, []));
-
 
     return (
         <Container>
@@ -222,19 +201,19 @@ export function List({navigation}: {navigation: any}) {
                         <HighlightCard
                             title="Entradas"
                             amount={highlightData.entries.amount}
-                            lastTransaction={highlightData.entries.lastTransaction}
+                            lastTransaction={highlightData.entries.lastDate}
                             type="up"
                         />
                         <HighlightCard
                             title="Despesas"
                             amount={highlightData.expensives.amount}
-                            lastTransaction={highlightData.expensives.lastTransaction}
+                            lastTransaction={highlightData.expensives.lastDate}
                             type="down"
                         />
                         <HighlightCard
                             title="Saldo"
                             amount={highlightData.total.amount}
-                            lastTransaction={highlightData.total.lastTransaction}
+                            lastTransaction={highlightData.total.lastDate}
                             type="total"
                         />
                     </Cards> 
