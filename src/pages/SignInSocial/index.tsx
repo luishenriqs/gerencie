@@ -50,10 +50,10 @@ const SignInSocial = () => {
             >
                 <Header>
                     <TitleWrapper>
-                        <LogoSvg 
+                        {/* <LogoSvg 
                             width={RFValue(120)}
                             height={RFValue(68)}
-                        />
+                        /> */}
                         <Title>
                             Gerencie sua {'\n'} 
                             vida de forma {'\n'} 
