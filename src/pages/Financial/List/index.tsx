@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import { useTheme } from 'styled-components'; 
+import { useTheme } from 'styled-components';
+//==> expo install @react-native-async-storage/async-storage;
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Header from '../../../components/Header';
 import { HighlightCard } from '../../../components/HighlightCard';

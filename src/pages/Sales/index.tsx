@@ -8,7 +8,7 @@ import {
   Content
 } from './styles';
 
-const Sales = ({navigation}: {navigation: any}) => {
+export function Sales({navigation}: {navigation: any}) {
   return (
     <>
       <KeyboardAvoidingView style={{flex: 1}} enabled>
@@ -23,5 +23,3 @@ const Sales = ({navigation}: {navigation: any}) => {
     </>
   );
 };
-
-export default Sales;

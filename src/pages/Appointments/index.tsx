@@ -8,7 +8,7 @@ import {
   Content
 } from './styles';
 
-const Appointments = ({navigation}: {navigation: any}) => {
+export function Appointments({navigation}: {navigation: any}) {
   return (
     <>
       <KeyboardAvoidingView style={{flex: 1}} enabled>
@@ -23,5 +23,3 @@ const Appointments = ({navigation}: {navigation: any}) => {
     </>
   );
 };
-
-export default Appointments;

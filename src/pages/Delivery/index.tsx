@@ -8,7 +8,7 @@ import {
   Content
 } from './styles';
 
-const Delivery = ({navigation}: {navigation: any}) => {
+export function Delivery({navigation}: {navigation: any}) {
   return (
     <>
       <KeyboardAvoidingView style={{flex: 1}} enabled>
@@ -23,5 +23,3 @@ const Delivery = ({navigation}: {navigation: any}) => {
     </>
   );
 };
-
-export default Delivery;

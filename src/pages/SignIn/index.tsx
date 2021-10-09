@@ -7,6 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import SignInSocialButton from '../../components/SignInSocialButton';
 //==> yarn add --dev react-native-svg-transformer;
 /* Obs: Importante fazer a tipagem dos arquivos 'svg' na pasta '@types' */
+/* Obs 2: Necessária a configuração do 'metro.config.js' - Veja documentação;'*/
 import LogoSvg from '../../assets/gofinances.svg';
 import GoogleSvg from '../../assets/google.svg';
 import AppleSvg from '../../assets/apple.svg';
@@ -20,7 +21,7 @@ import {
     FooterWrapper,
 } from './styles';
 
-const SignInSocial = () => {
+export function SignIn() {
     const { signInWithGoogle, signInWithApple } = useAuth();
 
     async function handleSignInWithGoogle() {
@@ -50,10 +51,10 @@ const SignInSocial = () => {
             >
                 <Header>
                     <TitleWrapper>
-                        {/* <LogoSvg 
+                        <LogoSvg 
                             width={RFValue(120)}
                             height={RFValue(68)}
-                        /> */}
+                        />
                         <Title>
                             Gerencie sua {'\n'} 
                             vida de forma {'\n'} 
@@ -82,5 +83,4 @@ const SignInSocial = () => {
             </LinearGradient>
         </Container>
     );
-}
-export default SignInSocial;
+};
