@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Modal, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
+import { useAuth } from '../../../hooks/Auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import uuid from 'react-native-uuid';
 import * as Yup from 'yup';
@@ -45,6 +46,7 @@ export function Register() {
     });
 
     const navigation = useNavigation();
+    const { user } = useAuth();
 
     const { control, handleSubmit, reset, formState: {errors} } = useForm({
         resolver: yupResolver(schema)
@@ -77,7 +79,7 @@ export function Register() {
             description: form.description
         }
         try {
-            const dataKey = '@gerencie:transactions';
+            const dataKey = `@gerencie:transactions_user:${user.id}`;
             const data = await AsyncStorage.getItem(dataKey);
             const currentData = data ? JSON.parse(data) : [];
             const dataFormated = [...currentData, newTransaction]

@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { useTheme } from 'styled-components';
+import { useAuth } from '../../../hooks/Auth';
 //==> expo install @react-native-async-storage/async-storage;
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Header from '../../../components/Header';
@@ -45,6 +46,7 @@ export function List({navigation}: {navigation: any}) {
     );
 
     const theme = useTheme();
+    const { user } = useAuth();
 
     function formattedAmount(amountToFormat: number) {
         let amount = amountToFormat
@@ -115,7 +117,7 @@ export function List({navigation}: {navigation: any}) {
     };
 
     async function request() {
-        const dataKey = '@gerencie:transactions';
+        const dataKey = `@gerencie:transactions_user:${user.id}`;
         const response = await AsyncStorage.getItem(dataKey);
         const transactions = response ? JSON.parse(response) : [];
 

@@ -8,6 +8,7 @@ import { VictoryPie } from 'victory-native';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { addMonths, subMonths, format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { useAuth } from '../../../hooks/Auth';
 import { useTheme } from 'styled-components';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { HistoryCard } from '../../../components/HistoryCard';
@@ -58,6 +59,7 @@ export function Resume() {
     const [totalByCategory, setTotalByCategory] = useState<ICategoryData[]>([]);
 
     const theme = useTheme();
+    const { user } = useAuth();
 
     // Filter to select date;
     function handleDateChange(action: 'next' | 'prev') {
@@ -69,7 +71,7 @@ export function Resume() {
     };
 
     async function request() {
-        const dataKey = '@gerencie:transactions';
+        const dataKey = `@gerencie:transactions_user:${user.id}`;
         const response = await AsyncStorage.getItem(dataKey);
         const responseFormatted = response ? JSON.parse(response) : [];
 
