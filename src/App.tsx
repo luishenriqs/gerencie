@@ -6,8 +6,8 @@ import 'intl/locale-data/jsonp/pt-BR';
 import * as React from 'react';
 import AppLoading from 'expo-app-loading';
 import { ThemeProvider } from 'styled-components';
-import { View, StatusBar } from 'react-native';
-import { AuthProvider } from './hooks/Auth';
+import { StatusBar } from 'react-native';
+import { AuthProvider, useAuth } from './hooks/Auth';
 import { Routes } from './routes/index.routes';
 import theme from './global/styles/theme';
 import {
@@ -25,8 +25,10 @@ export default function App() {
     Poppins_700Bold
   });
 
+  const { userStorageLoading } = useAuth();
+
   //=> expo install expo-app-loading;
-  if (!fontsLoaded) {
+  if (!fontsLoaded || userStorageLoading) {
     return <AppLoading />
   }
   return (
@@ -40,4 +42,4 @@ export default function App() {
       </AuthProvider>
     </ThemeProvider>
   );
-}
+};
