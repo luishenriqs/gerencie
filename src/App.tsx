@@ -7,9 +7,8 @@ import * as React from 'react';
 import AppLoading from 'expo-app-loading';
 import { ThemeProvider } from 'styled-components';
 import { View, StatusBar } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { AuthProvider } from './hooks/Auth';
-import AppRoutes from './routes/app.routes';
+import { Routes } from './routes/index.routes';
 import theme from './global/styles/theme';
 import {
   useFonts,
@@ -31,18 +30,14 @@ export default function App() {
     return <AppLoading />
   }
   return (
-     <NavigationContainer>
+    <ThemeProvider theme={theme}>
       <StatusBar
         barStyle="light-content"
         translucent
       />
-      <ThemeProvider theme={theme}>
-        <View style={{flex: 1, backgroundColor: '#312e38'}}>
-          <AuthProvider>
-            <AppRoutes />
-          </AuthProvider>
-        </View>
-      </ThemeProvider>
-    </NavigationContainer>
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
+    </ThemeProvider>
   );
 }

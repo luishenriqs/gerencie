@@ -1,10 +1,9 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import {View, ActivityIndicator} from 'react-native';
-import { AuthRoutes } from './auth.routes';
+import { View, ActivityIndicator } from 'react-native';
 import { AppRoutes } from './app.routes';
-import {useAuth} from '../hooks/auth';
+import { AuthRoutes } from './auth.routes';
+import { useAuth } from '../hooks/Auth';
 
 export function Routes() {
   const { user } = useAuth();
