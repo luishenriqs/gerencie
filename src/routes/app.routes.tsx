@@ -5,12 +5,12 @@ import { Delivery } from '../pages/Delivery';
 import { FinancialRoutes } from '../pages/Financial/Financial.routes';
 import { Sales } from '../pages/Sales';
 
-const Drawer = createDrawerNavigator();
+const { Navigator, Screen } = createDrawerNavigator();
 
 // Route to app menu;
 export function AppRoutes() {
   return (
-    <Drawer.Navigator
+    <Navigator
       drawerStyle={{
         backgroundColor: '#1780A1',
         width: 200,
@@ -22,10 +22,10 @@ export function AppRoutes() {
         labelStyle: {fontWeight: 'bold'}
       }}
     >
-      <Drawer.Screen name="Agendamentos" component={Appointments} />
-      <Drawer.Screen name="Entregas" component={Delivery} />
-      <Drawer.Screen name="Financeiro" component={FinancialRoutes} />
-      <Drawer.Screen name="Vendas" component={Sales} />
-    </Drawer.Navigator>
+      <Screen name="Financeiro" component={FinancialRoutes} />
+      <Screen name="Agendamentos" component={Appointments} />
+      <Screen name="Entregas" component={Delivery} />
+      <Screen name="Vendas" component={Sales} />
+    </Navigator>
   );
 };
